@@ -1,0 +1,40 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout"
+         xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <l:layout permission="${app.ADMINISTER}" norefresh="true">
+        <st:include it="${app}" page="sidepanel.jelly"/>
+        <l:main-panel>
+            <h1>
+                ${it.displayName}
+            </h1>
+            
+        	<f:form method="post" action="saveSettings">
+	            <f:section title="Configuration">
+	            	
+	            	<f:optionalBlock title="enable" help="/plugin/cron-shelve/help-enable.html" 
+	            		checked="${it.configuration.enable}"
+                        name="enable" >
+                    </f:optionalBlock>
+	            	
+	                <f:entry title="Cron Schedule" field="cron" help="/plugin/cron-shelve/help-cron.html">
+	                    <f:textbox value="${it.configuration.cron}" name="cron"/>
+	                </f:entry>
+	                  
+	                <f:entry title="Jobs Regex" field="Regex" help="/plugin/cron-shelve/help-regex.html">
+	                    <f:textbox value="${it.configuration.regex}" name="regex"/>
+	                </f:entry>
+	                  
+	                <f:entry title="Job expiration day" field="days" help="/plugin/cron-shelve/help-expiration.html">
+	                    <f:textbox value="${it.configuration.days}" name="days"/>
+	                </f:entry>
+
+  		            <f:entry>
+    		            <f:submit value="Save"/>
+  		            </f:entry>
+  		            
+                </f:section>
+            </f:form>
+            
+                       
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

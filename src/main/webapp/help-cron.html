@@ -1,0 +1,25 @@
+<div>
+  <p>
+  This field toggles when cron-shelve will execute using jenkins cron functionality<br/>
+    This field follows the syntax of cron<br/><br/>
+	[MINUTE] [HOUR] [DOM] [MONTH] [DOW]<br/><br/>
+	
+	H not to be confused with hours is used to derive a hash from a project name.<br/>
+	The hash is used to create a unique and but consistant time signature. This <br/>
+	ensures jobs do not execute at the same exact time.<br/>
+	  
+	
+	examples:<br/>
+	# every fifteen minutes (perhaps at :07, :22, :37, :52)<br/>
+	H/15 * * * *
+	<br/><br/>
+	# every ten minutes in the first half of every hour (three times, perhaps at :04, :14, :24)<br/>
+	H(0-29)/10 * * * *
+	<br/><br/>
+	# once every two hours every weekday (perhaps at 10:38 AM, 12:38 PM, 2:38 PM, 4:38 PM)<br/>
+	H 9-16/2 * * 1-5
+	<br/><br/>
+	# once a day on the 1st and 15th of every month except December<br/>
+	H H 1,15 1-11 *
+  </p>
+</div>
