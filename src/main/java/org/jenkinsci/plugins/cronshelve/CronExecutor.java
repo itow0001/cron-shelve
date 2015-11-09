@@ -23,6 +23,7 @@ public class CronExecutor extends AsyncPeriodicWork {
 
     private static final Logger LOGGER = Logger.getLogger(CronExecutor.class.getName());
     private static boolean enable;
+    private static boolean email;
     private static String cron;
     private static String regex;
     private static int    days;
@@ -42,8 +43,8 @@ public class CronExecutor extends AsyncPeriodicWork {
                 CronTab cronTab = new CronTab(cron);
                 long currentTime = System.currentTimeMillis();
                 if ((cronTab.ceil(currentTime).getTimeInMillis() - currentTime) == 0) {
-                	ShelveExecutor necroExec = new ShelveExecutor(regex,days);
-                	necroExec.run();
+                	ShelveExecutor shelveExec = new ShelveExecutor(regex,days,email);
+                	shelveExec.run();
                 }
             } catch (ANTLRException e) {
                 LOGGER.warning("[error] Could not parse provided cron tab" + e.getMessage());
@@ -58,6 +59,10 @@ public class CronExecutor extends AsyncPeriodicWork {
     public synchronized static void setEnable(boolean aenable)
     {
     	enable = aenable;
+    }
+    public synchronized static void setEmail(boolean aemail)
+    {
+    	email = aemail;
     }
     public synchronized static void setCron(String acron)
     {

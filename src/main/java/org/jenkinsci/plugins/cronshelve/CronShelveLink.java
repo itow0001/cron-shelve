@@ -50,6 +50,7 @@ public class CronShelveLink extends ManagementLink{
    
     public HttpResponse doSaveSettings(StaplerRequest res, StaplerResponse rsp,
     		@QueryParameter("enable") boolean enable,
+    		@QueryParameter("email") boolean email,
     		@QueryParameter("cron") String cron,
     		@QueryParameter("regex") String regex,
     		@QueryParameter("days") int days) throws IOException {
@@ -60,6 +61,7 @@ public class CronShelveLink extends ManagementLink{
       //update values to plugin and xml via CronShelvePluginImp
       final CronShelvePluginImp plugin =  getConfiguration(); //CronShelvePluginImp.getInstance();
       plugin.setEnable(enable);
+      plugin.setEmail(email);
       plugin.setCron(cron);
       plugin.setRegex(regex);
       plugin.setDays(days);
@@ -67,15 +69,10 @@ public class CronShelveLink extends ManagementLink{
       //Updates CronExecutor with new values
       CronExecutor cronListener = getCronExecutor();
       cronListener.setEnable(enable);
+      cronListener.setEmail(enable);
       cronListener.setCron(cron);
       cronListener.setRegex(regex);
       cronListener.setDays(days);
-      
-      /*
-	  	CronExecutor cronExec = new CronExecutor();
-	  	cronExec.setCron(cron);
-	  	cronExec.setRegex(regex);
-	  */
       return new HttpRedirect("index");
     }
     // Provides a easy means to populate and validate values in UI via CronShelvePluginImp

@@ -8,6 +8,7 @@ import hudson.Plugin;
 public class CronShelvePluginImp extends Plugin{
 	private static final Logger LOGGER = Logger.getLogger(CronShelvePluginImp.class.getName());
 	private boolean enable;
+	private boolean email;
 	private String cron;
 	private String regex;
 	private int days;
@@ -21,8 +22,10 @@ public class CronShelvePluginImp extends Plugin{
   public void start() throws Exception {
     super.start();
     load();
+    // at startup initialize listener with values
     CronExecutor cronListener = getCronExecutor();
     cronListener.setEnable(enable);
+    cronListener.setEmail(email);
     cronListener.setCron(cron);
     cronListener.setRegex(regex);
     cronListener.setDays(days);
@@ -44,6 +47,10 @@ public class CronShelvePluginImp extends Plugin{
   {
 	  this.enable = enable;
   }
+  public void setEmail(boolean email)
+  {
+	  this.email = email;
+  }
   
   public void setCron(String cron)
   {
@@ -64,6 +71,10 @@ public class CronShelvePluginImp extends Plugin{
   public boolean getEnable()
   {
 	  return enable;
+  }
+  public boolean getEmail()
+  {
+	  return email;
   }
   public String getCron()
   {

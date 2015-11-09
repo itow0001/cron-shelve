@@ -11,8 +11,11 @@
 	            <f:section title="Configuration">
 	            	
 	            	<f:optionalBlock title="enable" help="/plugin/cron-shelve/help-enable.html" 
-	            		checked="${it.configuration.enable}"
-                        name="enable" >
+	            		checked="${it.configuration.enable}" name="enable" >
+                    </f:optionalBlock>
+                    
+                    <f:optionalBlock title="email job owner" help="/plugin/cron-shelve/help-email.html" 
+	            		checked="${it.configuration.email}" name="email" >
                     </f:optionalBlock>
 	            	
 	                <f:entry title="Cron Schedule" field="cron" help="/plugin/cron-shelve/help-cron.html">

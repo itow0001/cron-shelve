@@ -1,5 +1,7 @@
 package org.jenkinsci.plugins.cronshelve;
-import org.jvnet.hudson.plugins.shelveproject.ShelveProjectExecutable;
+//import org.jvnet.hudson.plugins.shelveproject.ShelveProjectExecutable;
+import org.jvnet.hudson.plugins.shelveproject.ShelveProjectTask;
+//import org.jenkins-ci.plugins.shelveproject.ShelveProjectTask;
 import hudson.model.Queue;
 import hudson.model.Hudson;
 import hudson.model.AbstractProject;
@@ -13,26 +15,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
+import jenkins.model.Jenkins;
 
 public class ShelveExecutor {
 	private static final Logger LOGGER = Logger.getLogger(ShelveExecutor.class.getName());
 	private String regex;
 	private int    days;
+	private boolean email;
 	private boolean isRunning;
 	private Task parentTask;
-	//private ShelveProjectExecutable shelveIt;
 	
-	public ShelveExecutor(String regex, int days)
+	public ShelveExecutor(String regex, int days,boolean email)
 	{
 		this.regex = regex;
 		this.days  = days;
+		this.email = email;
 	}
 	
 	public void shelveJob(AbstractProject job)
 	{
 		LOGGER.warning("[shelving] job "+job.getName());
-		ShelveProjectExecutable shelveIt = new ShelveProjectExecutable (parentTask,job);
-		shelveIt.run();
+		//ShelveProjectExecutable shelveIt = new ShelveProjectExecutable (parentTask,job);
+		Jenkins.getInstance().getQueue().schedule(new ShelveProjectTask(job), 0);
+		//shelveIt.run();
 	}
 	
 	public int getJobDurationDays(AbstractProject job)
@@ -73,12 +78,11 @@ public class ShelveExecutor {
 	{
 		Hudson inst =Hudson.getInstance();
 		List<FreeStyleProject> freeStyleProjects = inst.getItems(FreeStyleProject.class);
-        
 		LOGGER.warning("[ShelveExecutor] running");
         for (FreeStyleProject freeStyleProject : freeStyleProjects) { 
         		try{
         			int duration = getJobDurationDays(freeStyleProject);
-        			boolean expired = isExpired(days,duration);
+        			boolean expired = isExpired(this.days,duration);
         			LOGGER.warning("[ShelveExecutor] "+freeStyleProject.getName()+" isExpired: "+Boolean.toString(expired)+" duration: "+Integer.toString(duration));
 	        			if(expired)
 	        			{
@@ -86,6 +90,11 @@ public class ShelveExecutor {
 				            if (m.matches()) { 
 				            	LOGGER.warning("[ShelveExecutor] regex match found job"+freeStyleProject.getName());
 				            	shelveJob(freeStyleProject);
+				            	if(email)
+				            	{
+				            		Email email = new Email(freeStyleProject,this.days);
+				            		email.sendOwnerEmail();
+				            	}
 				            }
 	        			}
         		   }
