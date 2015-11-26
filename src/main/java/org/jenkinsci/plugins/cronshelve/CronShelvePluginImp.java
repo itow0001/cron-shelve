@@ -96,11 +96,20 @@ public class CronShelvePluginImp extends Plugin{
 	ShelveExecutor shelver = new ShelveExecutor(regex,days,email,excludes,debug);
       for (FreeStyleProject freeStyleProject : freeStyleProjects) 
       { 
-		    boolean shelveable = shelver.isShelveable(freeStyleProject);
-	        if(shelveable)
-	        {
-	        	jobs.add(freeStyleProject);
-	        }        
+    	  try{
+			    boolean shelveable = shelver.isShelveable(freeStyleProject);
+		        if(shelveable)
+		        {
+		        	jobs.add(freeStyleProject);
+		        }
+    	     }
+  		catch (Exception e) 
+    	  {
+				if(this.debug)
+				{
+				   LOGGER.warning("[ShelveExecutor] [Error] " + e.getMessage());
+				}
+    	  }
       }
 	this.regexJobs = jobs;
   }
