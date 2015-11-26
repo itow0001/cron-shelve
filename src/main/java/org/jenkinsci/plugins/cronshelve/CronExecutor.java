@@ -23,10 +23,12 @@ public class CronExecutor extends AsyncPeriodicWork {
 
     private static final Logger LOGGER = Logger.getLogger(CronExecutor.class.getName());
     private static boolean enable;
+    private static boolean debug;
     private static boolean email;
     private static String cron;
     private static String regex;
     private static int    days;
+    private static String excludes;
     public CronExecutor() {
         super("CronExecutor");
     }
@@ -35,15 +37,22 @@ public class CronExecutor extends AsyncPeriodicWork {
     protected void execute(TaskListener taskListener) {
         String daysStr = Integer.toString(days);
         String enableStr = Boolean.toString(enable);
-        LOGGER.warning("[CronExecutor] listener polling");
-        LOGGER.warning("[CronExecutor] values --> cron: "+cron+" regex: "+regex+" days: "+daysStr+" enable: "+enableStr);
+        if(debug)
+        {
+            LOGGER.warning("[CronExecutor] listener polling");
+            LOGGER.warning("[CronExecutor] values -->\n cron: "+cron
+            		+"\n regex: "+regex
+            		+"\n days: "+daysStr
+            		+"\n enable: "+enableStr
+            		+"\n excludes: "+excludes);
+        }
         if(cron != null && regex != null && enable) {
             try {
             	LOGGER.warning("[running] cron daemon");
                 CronTab cronTab = new CronTab(cron);
                 long currentTime = System.currentTimeMillis();
                 if ((cronTab.ceil(currentTime).getTimeInMillis() - currentTime) == 0) {
-                	ShelveExecutor shelveExec = new ShelveExecutor(regex,days,email);
+                	ShelveExecutor shelveExec = new ShelveExecutor(regex,days,email,excludes,debug);
                 	shelveExec.run();
                 }
             } catch (ANTLRException e) {
@@ -60,6 +69,10 @@ public class CronExecutor extends AsyncPeriodicWork {
     {
     	enable = aenable;
     }
+    public synchronized static void setDebug(boolean adebug)
+    {
+    	debug = adebug;
+    }
     public synchronized static void setEmail(boolean aemail)
     {
     	email = aemail;
@@ -75,6 +88,10 @@ public class CronExecutor extends AsyncPeriodicWork {
     public synchronized static void setDays(int aday)
     {
     	days = aday;
+    }
+    public synchronized static void setExcludes(String aexcludes)
+    {
+    	excludes = aexcludes;
     }
     
     @Override

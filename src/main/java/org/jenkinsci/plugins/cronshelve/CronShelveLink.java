@@ -1,10 +1,17 @@
 package org.jenkinsci.plugins.cronshelve;
 import hudson.Extension;
+import hudson.model.FreeStyleProject;
 import hudson.model.Hudson;
 import hudson.model.ManagementLink;
 import hudson.security.Permission;
+import hudson.util.FormValidation;
+
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
+
+import javax.servlet.ServletException;
+
 import org.kohsuke.stapler.HttpRedirect;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
@@ -44,37 +51,46 @@ public class CronShelveLink extends ManagementLink{
         Hudson.getInstance().checkPermission(permission);
     }
     
-    public boolean someEnabledValue() {
-        return true;
-    }
-   
+    
     public HttpResponse doSaveSettings(StaplerRequest res, StaplerResponse rsp,
     		@QueryParameter("enable") boolean enable,
+    		@QueryParameter("debug") boolean debug,
     		@QueryParameter("email") boolean email,
     		@QueryParameter("cron") String cron,
     		@QueryParameter("regex") String regex,
-    		@QueryParameter("days") int days) throws IOException {
+    		@QueryParameter("days") int days,
+    		@QueryParameter("excludes") String excludes) throws IOException {
       checkPermission(Hudson.ADMINISTER);
       String daysStr = Integer.toString(days);
-      LOGGER.warning("values passed in cron: "+cron+" regex: "+regex+" days: "+daysStr);
+      if(debug)
+      {
+    	  LOGGER.warning("values passed in cron: "+cron+" regex: "+regex+" days: "+daysStr);
+      }
       
       //update values to plugin and xml via CronShelvePluginImp
       final CronShelvePluginImp plugin =  getConfiguration(); //CronShelvePluginImp.getInstance();
       plugin.setEnable(enable);
+      plugin.setDebug(debug);
       plugin.setEmail(email);
       plugin.setCron(cron);
       plugin.setRegex(regex);
       plugin.setDays(days);
+      plugin.setExcludes(excludes);
+      plugin.setRegexJobs(regex,days,email,excludes,debug);
       plugin.save();
       //Updates CronExecutor with new values
       CronExecutor cronListener = getCronExecutor();
       cronListener.setEnable(enable);
+      cronListener.setDebug(debug);
       cronListener.setEmail(enable);
       cronListener.setCron(cron);
       cronListener.setRegex(regex);
       cronListener.setDays(days);
+      cronListener.setExcludes(excludes);
       return new HttpRedirect("index");
     }
+    
+    
     // Provides a easy means to populate and validate values in UI via CronShelvePluginImp
     public CronShelvePluginImp getConfiguration()
     {
@@ -86,4 +102,6 @@ public class CronShelveLink extends ManagementLink{
     {
     	return CronExecutor.getInstance();
     }
+    
+    
 }
