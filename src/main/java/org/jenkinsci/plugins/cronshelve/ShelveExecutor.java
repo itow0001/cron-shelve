@@ -61,6 +61,7 @@ public class ShelveExecutor {
 		Date lastBuildTime = job.getLastCompletedBuild().getTime();
 		Long _duration     = getDuration(today,lastBuildTime); 
 		int  duration      = Integer.valueOf(_duration.intValue());
+		/*
 		if(this.debug)
 		{
 			LOGGER.warning("[getJobDurationDays]"
@@ -68,6 +69,7 @@ public class ShelveExecutor {
 			+"\n [lastBuildTime] "+dateFormat.format(lastBuildTime)+" of job " + job.getName()
 			+"\n      [duration] "+Integer.toString(duration));
 		}
+		*/
 		return duration;
 		
 	}
@@ -106,6 +108,8 @@ public class ShelveExecutor {
 		boolean expired = isExpired(this.days,duration);
 		boolean exclude = isExcludes(job);
 		Matcher match = Pattern.compile(this.regex).matcher(job.getName());
+		
+		/*
 		if(this.debug)
 		{
 			LOGGER.warning("[isShelveable] "+job.getName()
@@ -114,6 +118,7 @@ public class ShelveExecutor {
 					+"\n    exclude: "+Boolean.toString(exclude)
 					+"\nregex match: "+Boolean.toString(match.matches()));
 		}
+		*/
 		
 		if(exclude== false && expired==true && match.matches()==true)
 		{
