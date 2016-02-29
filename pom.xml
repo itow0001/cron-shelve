@@ -12,7 +12,7 @@
   </parent>
   <groupId>org.jenkins-ci.plugins</groupId>
   <artifactId>cron-shelve</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>hpi</packaging>
 
   <description> Performs job shelving actions based on cron schedule and regex</description>
@@ -23,22 +23,22 @@
       <url>http://opensource.org/licenses/MIT</url>
     </license>
   </licenses>
-  <!-- If you want this to appear on the wiki page:
+  <!-- If you want this to appear on the wiki page: -->
   <developers>
     <developer>
-      <id>bhacker</id>
-      <name>Bob Q. Hacker</name>
-      <email>bhacker@nowhere.net</email>
+      <id>itow0001</id>
+      <name>Ian Itow</name>
+      <email>itow0001@gmail.com</email>
     </developer>
   </developers>
-  -->
-  <!-- Assuming you want to host on @jenkinsci:
+
+  <!-- Assuming you want to host on @jenkinsci: -->
   <scm>
-    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
-    <url>http://github.com/jenkinsci/${project.artifactId}-plugin</url>
+    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}.git</developerConnection>
+    <url>http://github.com/jenkinsci/${project.artifactId}</url>
   </scm>
-   -->
+
   <repositories>
     <repository>
       <id>repo.jenkins-ci.org</id>
@@ -59,9 +59,9 @@
       <version>1.9.4</version>
     </dependency>
   </dependencies>
-  -->
+ -->
 
-  <name>Cron-shelve</name>
+  <name>cron-shelve</name>
   <dependencies>
   	<dependency>
   		<groupId>org.jenkins-ci.plugins</groupId>
