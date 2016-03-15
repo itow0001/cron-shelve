@@ -45,7 +45,7 @@ public class Email {
 		}	
 		JenkinsLocationConfiguration location = JenkinsLocationConfiguration.get();
 		String shelveUrl = location.getUrl()+"/shelvedProjects/";
-		String host      = "localhost";
+		String host      = location.getUrl();
 		String port      = "25";
 		String from      = location.getAdminAddress();
 		String subject   = "Jenkins Archived your job "+this.job.getName()+"\n";
@@ -53,7 +53,7 @@ public class Email {
 				          +"last built by "+to+" "+this.days+" days ago. \n"
 				          +"To un-shelve "+this.job.getName()+" please do the following:\n"
 				          +"1) go to this url "+shelveUrl+"\n"
-				          +"2) [check] the desire job to unshelve the project. \n"
+				          +"2) [check] the desired job to unshelve the project. \n"
 				          +"3) [push] Unshelve Project button.\n"
 				          +"4) go to your job "+jobUrl+"\n"
 				          +"5) [push] Build Now \n"

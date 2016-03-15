@@ -10,3 +10,11 @@ and a consistent naming convention is maintained to deploy hundreds of jobs.
 *         __Jobs Regex__: This provides a regex method to harvest a given set of jobs.
 * __Job Expiration day__: Check the last build date of all jobs matching the regex value and if its equal or greater to job Expiration day shelve the job.
 ![Alt text](docs/management.png?raw=true "Management Page")
+
+###Build Instructions###
+* mvn dependency:copy-dependencies
+* mvn clean install
+
+###License###
+[MIT License](https://opensource.org/licenses/mit-license.php)
+
