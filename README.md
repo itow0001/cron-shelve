@@ -1,7 +1,8 @@
 ##Cron-Shelve Plugin##
 ###Management Page###
-This plugin exposes a new option in "Manage Jenkins" section called "Cron-Shelve". This plugin is a great a option in cases where the [Job DSL Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin) is used 
-and a consistent naming convention is maintained to deploy hundreds of jobs. The cron-shelve plugin allows you to harvest hundreds of stale jobs in consistent automated manner. 
+The cron-shelve plugin allows you to harvest hundreds of stale jobs in consistent automated manner.
+This plugin exposes a new option in "Manage Jenkins" section called "Cron-Shelve". This plugin is a great option in cases where the [Job DSL Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin) is used 
+and a consistent naming convention is maintained to deploy hundreds of jobs. 
 *             __enable__: The ability to toggle execution of the plugin.
 *              __debug__: Output plugin state to logs.
 *        __email owner__: If an owner is assigned to the given job an email will be sent out, this option requires the [Ownership Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Ownership+Plugin) is installed.
