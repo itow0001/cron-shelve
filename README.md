@@ -1,11 +1,11 @@
 ##Cron-Shelve Plugin##
 ###Management Page###
-This plugin exposes a new option in "Manage Jenkins" section called "Cron-Shelve". This plugin is great option in cases where the [Job DSL Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin) is used 
-and a consistent naming convention is used to deploy several jobs.
+This plugin exposes a new option in "Manage Jenkins" section called "Cron-Shelve". This plugin is a great a option in cases where the [Job DSL Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin) is used 
+and a consistent naming convention is maintained to deploy hundreds of jobs. The cron-shelve plugin allows you to harvest hundreds of stale jobs in consistent automated manner. 
 *             __enable__: The ability to toggle execution of the plugin.
-*              __debug__: Prints all actions out to the system log.
+*              __debug__: Output plugin state to logs.
 *        __email owner__: If an owner is assigned to the given job an email will be sent out, this option requires the [Ownership Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Ownership+Plugin) is installed.
 *      __Cron Schedule__: The given time period the shelving will begin.
 *         __Jobs Regex__: This provides a regex method to harvest a given set of jobs.
-* __Job Expiration day__: If the job has gone stale by a user, this is the given number of days before its considered for shelving.
+* __Job Expiration day__: Check the last build date of all jobs matching the regex value and if its equal or greater to job Expiration day shelve the job.
 ![Alt text](docs/management.png?raw=true "Management Page")
