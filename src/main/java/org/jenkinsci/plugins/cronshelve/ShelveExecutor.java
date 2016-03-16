@@ -61,15 +61,6 @@ public class ShelveExecutor {
 		Date lastBuildTime = job.getLastCompletedBuild().getTime();
 		Long _duration     = getDuration(today,lastBuildTime); 
 		int  duration      = Integer.valueOf(_duration.intValue());
-		/*
-		if(this.debug)
-		{
-			LOGGER.warning("[getJobDurationDays]"
-	        +"\n         [today] "+dateFormat.format(today)
-			+"\n [lastBuildTime] "+dateFormat.format(lastBuildTime)+" of job " + job.getName()
-			+"\n      [duration] "+Integer.toString(duration));
-		}
-		*/
 		return duration;
 		
 	}

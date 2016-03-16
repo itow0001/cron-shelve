@@ -5,7 +5,7 @@ This plugin exposes a new option in "Manage Jenkins" section called "Cron-Shelve
 and a consistent naming convention is maintained to deploy hundreds of jobs. 
 *             __enable__: The ability to toggle execution of the plugin.
 *              __debug__: Output plugin state to logs.
-*        __email owner__: If an owner is assigned to the given job an email will be sent out, this option requires the [Ownership Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Ownership+Plugin) is installed.
+*        __email owner__: In order for this to be functional a given job must have "Set jenkins user build variables" set.
 *      __Cron Schedule__: The given time period the shelving will begin.
 *         __Jobs Regex__: This provides a regex method to harvest a given set of jobs.
 * __Job Expiration day__: Check the last build date of all jobs matching the regex value and if its equal or greater to job Expiration day shelve the job.

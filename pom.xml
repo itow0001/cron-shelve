@@ -73,5 +73,10 @@
   		<artifactId>build-user-vars-plugin</artifactId>
   		<version>1.4</version>
   	</dependency>
+		<dependency>
+			<groupId>org.jenkins-ci.plugins</groupId>
+			<artifactId>mailer</artifactId>
+			<version>1.4</version>
+		</dependency>
   </dependencies>
 </project>
