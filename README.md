@@ -14,7 +14,8 @@ and a consistent naming convention is maintained to deploy hundreds of jobs.
 ###Build Instructions###
 * mvn dependency:copy-dependencies
 * mvn clean install
+* go here for the installation item: cron-shelve/target/cron-shelve.hpi 
 
-###License###
+###Further Info###
+[Jira Tickets TBD](https://www.google.com/)
 [MIT License](https://opensource.org/licenses/mit-license.php)
-
