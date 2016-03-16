@@ -17,5 +17,5 @@ and a consistent naming convention is maintained to deploy hundreds of jobs.
 * go here for the installation item: cron-shelve/target/cron-shelve.hpi 
 
 ###Further Info###
-[Jira Tickets TBD](https://www.google.com/)
-[MIT License](https://opensource.org/licenses/mit-license.php)
+* [Jira Tickets TBD](https://www.google.com/)
+* [MIT License](https://opensource.org/licenses/mit-license.php)
