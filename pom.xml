@@ -16,7 +16,7 @@
   <packaging>hpi</packaging>
 
   <description> Performs job shelving actions based on cron schedule and regex</description>
-  <url>https://wiki.jenkins-ci.org/display/JENKINS/TODO+Plugin</url>
+  <url>https://wiki.jenkins-ci.org/display/JENKINS/Cron+Shelve+Plugin</url>
   <licenses>
     <license>
       <name>MIT License</name>
