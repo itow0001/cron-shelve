@@ -7,14 +7,6 @@ import java.util.logging.Logger;
 
 import hudson.scheduler.CronTab;
 import antlr.ANTLRException;
-import hudson.Extension;
-import hudson.model.AsyncPeriodicWork;
-import hudson.model.TaskListener;
-
-import java.io.IOException;
-import java.util.logging.Logger;
-
-import hudson.scheduler.CronTab;
 /**
  * Responsible for performing periodic shelving of jobs via cron
  */
@@ -51,7 +43,10 @@ public class CronExecutor extends AsyncPeriodicWork {
             	LOGGER.warning("[running] cron daemon");
                 CronTab cronTab = new CronTab(cron);
                 long currentTime = System.currentTimeMillis();
-                if ((cronTab.ceil(currentTime).getTimeInMillis() - currentTime) == 0) {
+                // truncate the times to the minute
+                long nextTime = cronTab.floor(currentTime).getTimeInMillis() / 1000 / 60;
+                currentTime = currentTime / 1000 / 60;
+                if (nextTime == currentTime) {
                 	ShelveExecutor shelveExec = new ShelveExecutor(regex,days,email,excludes,debug);
                 	shelveExec.run();
                 }
