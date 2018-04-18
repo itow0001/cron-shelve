@@ -59,7 +59,8 @@ public class CronShelveLink extends ManagementLink{
     		@QueryParameter("cron") String cron,
     		@QueryParameter("regex") String regex,
     		@QueryParameter("days") int days,
-    		@QueryParameter("excludes") String excludes) throws IOException {
+    		@QueryParameter("excludes") String excludes,
+    		@QueryParameter("runNow") boolean runNow) throws IOException {
       checkPermission(Hudson.ADMINISTER);
       String daysStr = Integer.toString(days);
       if(debug)
@@ -87,6 +88,10 @@ public class CronShelveLink extends ManagementLink{
       cronListener.setRegex(regex);
       cronListener.setDays(days);
       cronListener.setExcludes(excludes);
+      if (enable && runNow) {
+          ShelveExecutor shelveExec = new ShelveExecutor(regex,days,email,excludes,debug);
+          shelveExec.run();
+      }
       return new HttpRedirect("index");
     }
     

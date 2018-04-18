@@ -35,6 +35,10 @@
 	                    <f:textbox value="${it.configuration.days}" name="days"/>
 	                </f:entry>
 	                
+	            	<f:optionalBlock title="run now" help="/plugin/cron-shelve/help-runNow.html"
+	            		checked="false" name="runNow" >
+                    </f:optionalBlock>
+
 	               <h4>
 	               	  jobs to be Shelved:
                   </h4>
