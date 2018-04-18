@@ -1,17 +1,13 @@
 package org.jenkinsci.plugins.cronshelve;
 import hudson.Extension;
-import hudson.model.FreeStyleProject;
 import hudson.model.Hudson;
 import hudson.model.ManagementLink;
 import hudson.security.Permission;
-import hudson.util.FormValidation;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Logger;
 
-import javax.servlet.ServletException;
-
+import jenkins.model.Jenkins;
 import org.kohsuke.stapler.HttpRedirect;
 import org.kohsuke.stapler.HttpResponse;
 import org.kohsuke.stapler.QueryParameter;
@@ -48,7 +44,7 @@ public class CronShelveLink extends ManagementLink{
     }
     
     private void checkPermission(Permission permission) {
-        Hudson.getInstance().checkPermission(permission);
+        Jenkins.getInstance().checkPermission(permission);
     }
     
     
