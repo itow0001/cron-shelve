@@ -100,7 +100,7 @@ public class CronShelvePluginImp extends Plugin{
 			    boolean shelveable = shelver.isShelveable(freeStyleProject);
 		        if(shelveable)
 		        {
-		        	jobs.add(freeStyleProject);
+		        	jobs.add(freeStyleProject.getName());
 		        }
     	     }
   		catch (Exception e) 
