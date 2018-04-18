@@ -1,13 +1,8 @@
 package org.jenkinsci.plugins.cronshelve;
 import org.jvnet.hudson.plugins.shelveproject.ShelveProjectTask;
 
-import hudson.model.AsyncPeriodicWork;
-//import org.jenkins-ci.plugins.shelveproject.ShelveProjectTask;
-import hudson.model.Queue;
-import hudson.model.Hudson;
 import hudson.model.AbstractProject;
 import hudson.model.Queue.Task;
-import hudson.model.FreeStyleProject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -120,21 +115,21 @@ public class ShelveExecutor {
 	
 	public void run()
 	{
-		Hudson inst =Hudson.getInstance();
-		List<FreeStyleProject> freeStyleProjects = inst.getItems(FreeStyleProject.class);
-        for (FreeStyleProject freeStyleProject : freeStyleProjects) { 
+		Jenkins inst = Jenkins.getInstance();
+		List<AbstractProject> projects = inst.getItems(AbstractProject.class);
+        for (AbstractProject project : projects) {
         		try{
-        			    boolean shelveable = isShelveable(freeStyleProject);
+        			    boolean shelveable = isShelveable(project);
         			    if(this.debug)
         			    {
         			    	LOGGER.warning("isShelveable: "+Boolean.toString(shelveable));
         			    }
 		            	if(shelveable)
 		            	{
-			            	shelveJob(freeStyleProject);
+			            	shelveJob(project);
 			            	if(this.email)
 			            	{
-			            		Email email = new Email(freeStyleProject,this.days);
+			            		Email email = new Email(project,this.days);
 			            		email.sendOwnerEmail();
 			            	}
 		            	}           

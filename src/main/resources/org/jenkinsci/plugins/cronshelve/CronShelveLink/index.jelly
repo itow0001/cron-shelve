@@ -34,7 +34,11 @@
 	                <f:entry title="Job expiration day" field="days" help="/plugin/cron-shelve/help-expiration.html">
 	                    <f:textbox value="${it.configuration.days}" name="days"/>
 	                </f:entry>
-	                
+
+	            	<f:optionalBlock title="run now" help="/plugin/cron-shelve/help-runNow.html"
+	            		checked="false" name="runNow" >
+                    </f:optionalBlock>
+
 	               <h4>
 	               	  jobs to be Shelved:
                   </h4>
@@ -44,7 +48,7 @@
 		                <j:when test="${!shelvedProjectsList.isEmpty()}">
 		                        <ol>
 		                         <j:forEach var="shelvedProject" items="${shelvedProjectsList}">
-                                		<li>${shelvedProject.getName()}</li>
+                                		<li>${shelvedProject}</li>
                             		</j:forEach>
 		                        </ol>
 		                </j:when>

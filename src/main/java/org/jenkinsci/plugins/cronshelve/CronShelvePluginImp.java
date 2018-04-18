@@ -3,11 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.kohsuke.stapler.DataBoundSetter;
+import hudson.model.AbstractProject;
+import jenkins.model.Jenkins;
 
 import hudson.Plugin;
-import hudson.model.FreeStyleProject;
-import hudson.model.Hudson;
 /**
  * Responsible for plugin setup and persistence of values in CronShelveLink
  */
@@ -21,7 +20,7 @@ public class CronShelvePluginImp extends Plugin{
 	private int days;
 	private String excludes;
 	private static CronShelvePluginImp instance = null;
-	private ArrayList<FreeStyleProject> regexJobs;
+	private List<String> regexJobs;
   // constructor sets instance
   public CronShelvePluginImp() {
 	    instance = this;
@@ -90,17 +89,17 @@ public class CronShelvePluginImp extends Plugin{
   
   public void setRegexJobs(String regex, int days,boolean email,String excludes,boolean debug)
   {
-	ArrayList<FreeStyleProject> jobs = new ArrayList<FreeStyleProject>();
-	Hudson inst =Hudson.getInstance();
-	List<FreeStyleProject> freeStyleProjects = inst.getItems(FreeStyleProject.class);
+	List<String> jobs = new ArrayList<String>();
+	Jenkins inst = Jenkins.getInstance();
+	List<? extends AbstractProject> projects= inst.getItems(AbstractProject.class);
 	ShelveExecutor shelver = new ShelveExecutor(regex,days,email,excludes,debug);
-      for (FreeStyleProject freeStyleProject : freeStyleProjects) 
+      for (AbstractProject project: projects)
       { 
     	  try{
-			    boolean shelveable = shelver.isShelveable(freeStyleProject);
+			    boolean shelveable = shelver.isShelveable(project);
 		        if(shelveable)
 		        {
-		        	jobs.add(freeStyleProject);
+		        	jobs.add(freeStyleProject.getName());
 		        }
     	     }
   		catch (Exception e) 
@@ -143,7 +142,7 @@ public class CronShelvePluginImp extends Plugin{
   {
 	  return excludes;
   }
-  public ArrayList<FreeStyleProject> getRegexJobs()
+  public List<String> getRegexJobs()
   {
 	  return regexJobs;
   }
